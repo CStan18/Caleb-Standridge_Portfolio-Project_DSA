@@ -1,7 +1,4 @@
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main
 {
@@ -9,7 +6,9 @@ public class Main
     private static Scanner scnr = new Scanner(System.in);
 
     // Crete queue to hold person objects
-    private static Queue<Person> personQueue = new LinkedList<Person>();
+    private static PriorityQueue<Person> personQueue = new PriorityQueue();
+    private static PriorityQueue<Integer> ageQueue = new PriorityQueue();
+    private static PriorityQueue<String> lastNameQueue = new PriorityQueue(Collections.reverseOrder());
 
     private static void printQueueContents()
     {
@@ -53,12 +52,19 @@ public class Main
 
         // Sort contents in descending order by last name
         System.out.println("\nSorted in descending order by last name: ");
-
-        printQueueContents();
+        personQueue.forEach(Person -> lastNameQueue.add(Person.lastName));
+        while (!lastNameQueue.isEmpty())
+        {
+            System.out.println(lastNameQueue.poll());
+        }
 
         // Sort contents by age
         System.out.println("\nSorted by age: ");
+        personQueue.forEach(Person -> ageQueue.add(Person.age));
+        while (!ageQueue.isEmpty())
+        {
+            System.out.println(ageQueue.poll());
+        }
 
-        printQueueContents();
     }
 }
